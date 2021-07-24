@@ -1,0 +1,14 @@
+name: Admin
+version: ${project.version}
+main: me.lubek.admin.Admin
+api-version: 1.16
+commands:
+  admin:
+    description: Your description
+    usage: /<command>
+  gamemode:
+    description: Your description
+    usage: /<command>
+    aliases:
+      - gm
+      - gmode
