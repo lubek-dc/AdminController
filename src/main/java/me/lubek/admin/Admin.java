@@ -1,8 +1,11 @@
 package me.lubek.admin;
 
+import me.lubek.admin.api.prefix;
 import me.lubek.admin.commands.admin;
 import me.lubek.admin.commands.gamemode;
 import me.lubek.admin.files.messages;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Admin extends JavaPlugin {
@@ -19,18 +22,24 @@ public final class Admin extends JavaPlugin {
 
 
         //Config setup
-        getConfig().options().copyDefaults();
-        saveDefaultConfig();
+        //getConfig().options().copyDefaults();
+        //saveDefaultConfig();
         messages.setup();
         messages.get().options().copyDefaults(true);
 
 
         //Gamemodes setup
-        messages.get().addDefault("survival", "Survival");
-        messages.get().addDefault("creative", "Creative");
-        messages.get().addDefault("adventure", "adventure");
-        messages.get().addDefault("spectator", "Spectator");
-        messages.get().addDefault("Not-Enough-Args", "Za malo argumentow");
+
+        ConfigurationSection gamemodes = messages.get().getConfigurationSection("Gamemodes");
+        if (gamemodes == null) { gamemodes = messages.get().createSection("Gamemodes"); }
+
+        gamemodes.addDefault("survival", "Survival");
+        gamemodes.addDefault("creative", "Creative");
+        gamemodes.addDefault("adventure", "adventure");
+        gamemodes.addDefault("spectator", "Spectator");
+        gamemodes.addDefault("Not-Enough-Args", "Za malo argumentow");
+
+
         //Admin messages setup
 
 

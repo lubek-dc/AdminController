@@ -28,14 +28,15 @@ public class gamemode implements CommandExecutor {
 
         Player player = Bukkit.getPlayer(sender.getName());
         if (args.length==1) {
-            if (args[0].equals("0")){ player.setGameMode(GameMode.SURVIVAL); player.sendMessage(prefix.Log(messages.get().getString("survival")));}
-            if (args[0].equals("1")){ player.setGameMode(GameMode.CREATIVE); player.sendMessage(prefix.Log(messages.get().getString("creative")));}
-            if (args[0].equals("2")){ player.setGameMode(GameMode.ADVENTURE); player.sendMessage(prefix.Log(messages.get().getString("adventure")));}
-            if (args[0].equals("3")){ player.setGameMode(GameMode.SPECTATOR); player.sendMessage(prefix.Log(messages.get().getString("spectator")));}
+            ConfigurationSection gamemodes = messages.get().getConfigurationSection("Gamemodes");
+            if (args[0].equals("0")){ player.setGameMode(GameMode.SURVIVAL); player.sendMessage(prefix.Log(gamemodes.getString("survival"),true, player));}
+            if (args[0].equals("1")){ player.setGameMode(GameMode.CREATIVE); player.sendMessage(prefix.Log(gamemodes.getString("creative"),true, player));}
+            if (args[0].equals("2")){ player.setGameMode(GameMode.ADVENTURE); player.sendMessage(prefix.Log(gamemodes.getString("adventure"),true, player));}
+            if (args[0].equals("3")){ player.setGameMode(GameMode.SPECTATOR); player.sendMessage(prefix.Log(gamemodes.getString("spectator"),true, player));}
             return true;
         }
         else {
-            player.sendMessage(prefix.Error(messages.get().getString("Not-Enough-Args")));
+            player.sendMessage(prefix.Error(messages.get().getString("Not-Enough-Args"), true, player));
             return true;
         }
     }

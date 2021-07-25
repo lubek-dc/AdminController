@@ -2,6 +2,7 @@ package me.lubek.admin.commands;
 
 import me.lubek.admin.api.prefix;
 import me.lubek.admin.files.messages;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,12 +24,19 @@ public class admin implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = (Player)sender;
+        Player player = Bukkit.getPlayer(sender.getName());
 
-
-        if (args[0].equals("reload")){ // Reloads Config
-            messages.reload();
-            player.sendMessage(prefix.Log("config.yml Reloaded"));
+        if (args.length==1) {
+            if (args[0].equals("reload")) { // Reloads Config
+                messages.reload();
+                player.sendMessage(prefix.Log("config.yml Reloaded", true, player));
+                return true;
+            }
+        }
+        else {
+            player.sendMessage("Commands:");
+            player.sendMessage("/admin reload - Przeladowywuje wszystkie pliki configowe");
+            return true;
         }
 
         return false;
